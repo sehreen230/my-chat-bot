@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import ReactMarkdown from "react-markdown";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:8001";
 const fmtDate = (d) => new Date(d).toLocaleDateString("en-PK", { day: "numeric", month: "short" });
@@ -153,7 +154,7 @@ function Attendance({ attendance }) {
 }
 
 function AITutor() {
-  const [messages, setMessages] = useState([{ role: "assistant", content: "Hello! I am your COMSATS AI tutor powered by Claude. Ask me anything about your courses!" }]);
+  const [messages, setMessages] = useState([{ role: "assistant", content: "Hello! I am your COMSATS AI tutor powered by Llama 3. Ask me anything about your courses!" }]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef(null);
@@ -183,7 +184,7 @@ function AITutor() {
           {messages.map((m, i) => (
             <div key={i} className={`msg ${m.role}`}>
               {m.role === "assistant" && <span className="msg-avatar">◉</span>}
-              <div className="msg-bubble">{m.content}</div>
+              <div className="msg-bubble"><ReactMarkdown>{m.content}</ReactMarkdown></div>
             </div>
           ))}
           {loading && <div className="msg assistant"><span className="msg-avatar">◉</span><div className="msg-bubble typing"><span/><span/><span/></div></div>}
