@@ -260,7 +260,7 @@ function QuizPrep({ assignments }) {
 }
 
 function Settings() {
-  const [creds, setCreds] = useState({ username: "", password: "" });
+  const [creds, setCreds] = useState({ username: "", password: "", telegram_token: "", telegram_chat_id: "" });
   const [saved, setSaved] = useState(false);
   const save = async () => {
     try {
@@ -275,9 +275,13 @@ function Settings() {
       <div className="settings-card">
         <h2 className="card-title">COMSATS CMS credentials</h2>
         <p className="page-sub">Stored locally on your Mac only.</p>
-        <div className="form-group"><label>Roll Number</label><input className="form-input" type="text" value={creds.username} onChange={(e) => setCreds({...creds, username: e.target.value})} placeholder="e.g. FA22-BCS-001" /></div>
-        <div className="form-group"><label>Password</label><input className="form-input" type="password" value={creds.password} onChange={(e) => setCreds({...creds, password: e.target.value})} placeholder="••••••••" /></div>
-        <button className="gen-btn" onClick={save}>{saved ? "Saved ✓" : "Save settings"}</button>
+        <div className="form-group"><label>Roll Number</label><input className="form-input" type="text" value={creds.username || ""} onChange={(e) => setCreds({...creds, username: e.target.value})} placeholder="e.g. FA22-BCS-001" /></div>
+        <div className="form-group"><label>Password</label><input className="form-input" type="password" value={creds.password || ""} onChange={(e) => setCreds({...creds, password: e.target.value})} placeholder="••••••••" /></div>
+        <h2 className="card-title" style={{marginTop: "2rem"}}>Mobile Notifications (Telegram)</h2>
+        <p className="page-sub">Get direct alerts to your cell phone when assignments are due. (100% Free)</p>
+        <div className="form-group"><label>Telegram Bot Token</label><input className="form-input" type="text" value={creds.telegram_token || ""} onChange={(e) => setCreds({...creds, telegram_token: e.target.value})} placeholder="e.g. 7483... (from @BotFather)" /></div>
+        <div className="form-group"><label>Telegram Chat ID</label><input className="form-input" type="text" value={creds.telegram_chat_id || ""} onChange={(e) => setCreds({...creds, telegram_chat_id: e.target.value})} placeholder="e.g. 129384... (from @userinfobot)" /></div>
+        <button className="gen-btn" style={{marginTop: "1rem"}} onClick={save}>{saved ? "Saved ✓" : "Save settings"}</button>
       </div>
     </div>
   );
